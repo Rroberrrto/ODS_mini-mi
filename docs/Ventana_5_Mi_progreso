@@ -1,0 +1,8 @@
+Ventana 5. Mi progreso
+Esta ventana reúne los resultados que el niño obtiene al participar en los tres juegos. En la parte superior aparece el mensaje “¡Mira lo que descubriste!” y debajo se muestran tres secciones, 
+cada una con el nombre y el dibujo de una actividad.
+En “Hojas navegantes” se muestra su puntuación por intento. En “Arma tu casa” aparece cuántas figuras logró colocar en la posición correcta. 
+En “Aprendo palabras” se indica cuántos objetos relacionó correctamente con sus nombres. También se puede consultar cuántas veces se completó cada juego.
+Los resultados cambian conforme el niño termina nuevas partidas. Si todavía no ha jugado, aparece un mensaje que lo invita a escoger su primera actividad, en lugar de mostrar números inventados.
+La pantalla utiliza frases amables y evita comparar los resultados con los de otros niños.
+Al final se encuentran los botones “Volver al inicio” y “Jugar otra vez”. También puede incluirse un espacio sencillo para que una persona adulta revise los resultados.

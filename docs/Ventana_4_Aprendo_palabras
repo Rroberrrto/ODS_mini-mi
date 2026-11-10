@@ -1,0 +1,8 @@
+Ventana 4. Aprendo palabras
+En esta ventana aparece el dibujo de una habitación con cuatro objetos fáciles de reconocer: una mesa, una silla, una ventana y una lámpara. Al principio, cada objeto tiene una flecha que apunta hacia su nombre escrito.
+Si el niño toca una imagen o una palabra, puede escuchar cómo se pronuncia.
+Cuando termina de explorar la habitación, presiona “Ya los vi”. Las palabras y las flechas desaparecen, y el juego empieza a señalar los objetos uno por uno. 
+En cada turno se escucha la pregunta “¿Cómo se llama esto?” y aparecen tres respuestas posibles. El niño elige la palabra que corresponde al objeto. Si no reconoce las opciones escritas, puede escucharlas antes de responder.
+Después de acertar, el nombre del objeto vuelve a mostrarse brevemente. También se le invita a decir la palabra en voz alta, con la posibilidad de escucharla otra vez.
+Para el MVP no es necesario que el juego reconozca su voz; puede presionar “Ya la dije” o continuar sin utilizar el micrófono.
+Una vez que responde por los cuatro objetos, la pantalla muestra un mensaje de cierre y permite repetir la actividad, revisar el progreso o volver a la bienvenida.

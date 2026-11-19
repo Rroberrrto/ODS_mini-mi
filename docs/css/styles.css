@@ -1,0 +1,270 @@
+/*
+  styles.css — estilos de todo el juego.
+  Orden: 1) base  2) barra y botones  3) una sección por ventana.
+  Mobile-first: el diseño base es para teléfono; en pantallas anchas
+  simplemente se centra con un ancho máximo.
+*/
+
+/* ---------- 1. Base ---------- */
+
+:root {
+  --crema: #FAF7F0;
+  --tinta: #1F2937;
+  --acento: #D97757;
+  --verde: #BBF7D0;
+  --verde-trazo: #166534;
+  --amarillo: #FDE68A;
+  --amarillo-trazo: #CA8A04;
+  --blanco: #FFFFFF;
+  --borde: #D6CFBE;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+main {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 12px 16px 32px;
+  outline: none;
+}
+
+h1 { font-size: 1.6rem; margin: 8px 0; text-align: center; }
+p  { margin: 8px 0; }
+svg { display: block; }
+[hidden] { display: none !important; }
+
+/* Foco visible para quien usa teclado. */
+:focus-visible { outline: 4px solid var(--verde-trazo); outline-offset: 3px; }
+
+/* ---------- 2. Barra y botones ---------- */
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 8px 16px;
+}
+.barra-titulo { font-weight: 700; flex: 1; text-align: center; }
+
+/* Todo lo tocable mide al menos 56×56 px (dedos pequeños e imprecisos). */
+.boton, .boton-icono {
+  min-width: 56px;
+  min-height: 56px;
+  border: 3px solid var(--tinta);
+  border-radius: 16px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--tinta);
+  cursor: pointer;
+}
+.boton { padding: 10px 20px; background: var(--acento); }
+.boton-suave { background: var(--blanco); }
+.boton-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: var(--blanco);
+}
+.boton:disabled, .boton-icono:disabled { opacity: .45; cursor: default; }
+.boton:active:not(:disabled), .boton-icono:active:not(:disabled) { transform: scale(.96); }
+
+/* Botón de sonido: muestra ondas si está activado, un tache si no. */
+#boton-sonido[aria-pressed="true"] .tache { display: none; }
+#boton-sonido[aria-pressed="false"] .ondas { display: none; }
+
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.contador { text-align: center; font-weight: 700; margin: 0; }
+.aviso { text-align: center; font-weight: 700; min-height: 1.5em; }
+
+.pregunta-fila {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.personaje { width: 110px; height: 110px; margin: 0 auto; }
+
+/* Pantalla de cierre de cada juego. */
+.final { text-align: center; padding-top: 16px; }
+.frase { font-size: 1.2rem; }
+
+/* ---------- 3a. V1 Bienvenida ---------- */
+
+.tarjetas { display: grid; gap: 12px; margin: 16px 0; }
+.tarjeta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 96px;
+  padding: 12px 16px;
+  border: 3px solid var(--tinta);
+  border-radius: 20px;
+  background: var(--blanco);
+  font: inherit;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--tinta);
+  text-align: left;
+  cursor: pointer;
+}
+.tarjeta svg { width: 72px; height: 72px; flex: none; }
+.tarjeta:active { transform: scale(.98); }
+.centrado { display: flex; justify-content: center; }
+
+/* ---------- 3b. V2 Hojas ---------- */
+
+.campo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 190px;
+  padding: 8px;
+  border: 4px solid var(--borde);
+  border-radius: 24px;
+  overflow: hidden;
+}
+/* El color del campo y de las hojas le dice al niño qué regla toca. */
+.campo-apuntan { background: #F0FDF4; border-color: var(--verde-trazo); }
+.campo-vuelan  { background: #FEFCE8; border-color: var(--amarillo-trazo); }
+.campo-bien    { box-shadow: 0 0 0 6px var(--verde-trazo); }
+
+.hoja { width: 13vw; max-width: 76px; flex: none; }
+.hoja-objetivo { width: 27vw; max-width: 150px; }
+.hoja svg { width: 100%; height: auto; }
+.hoja-izq svg { transform: scaleX(-1); }  /* la misma hoja, volteada */
+.hoja-pista { outline: 4px dashed var(--acento); outline-offset: 2px; border-radius: 16px; }
+
+/* "Volar": la hoja se desliza siempre en un solo sentido y vuelve a empezar. */
+.vuela-der { animation: vuela-der 1.1s linear infinite; }
+.vuela-izq { animation: vuela-izq 1.1s linear infinite; }
+@keyframes vuela-der {
+  0%   { transform: translateX(-10px); opacity: .35; }
+  25%, 75% { opacity: 1; }
+  100% { transform: translateX(10px); opacity: .35; }
+}
+@keyframes vuela-izq {
+  0%   { transform: translateX(10px); opacity: .35; }
+  25%, 75% { opacity: 1; }
+  100% { transform: translateX(-10px); opacity: .35; }
+}
+
+.flechas { display: flex; justify-content: center; gap: 24px; margin-top: 8px; }
+.flechas .boton { min-width: 120px; min-height: 80px; display: inline-flex; align-items: center; justify-content: center; }
+
+/* ---------- 3c. V3 Casa ---------- */
+
+#casa-svg {
+  width: 100%;
+  max-width: 400px;
+  max-height: 64vh;
+  margin: 0 auto;
+  border: 3px solid var(--tinta);
+  border-radius: 16px;
+  background: var(--blanco);
+  touch-action: none;   /* que arrastrar una pieza no mueva la página */
+  user-select: none;
+}
+.bandeja { fill: #F1ECDF; }
+.silueta { fill: none; stroke: #6B7280; stroke-width: 3; stroke-dasharray: 8 6; }
+#casa-piezas .pieza { cursor: grab; }
+.toque { fill: transparent; }  /* zona tocable invisible, más grande que la pieza */
+.pieza-seleccionada .toque { stroke: var(--acento); stroke-width: 3; stroke-dasharray: 6 4; }
+
+.comparacion { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.comparacion figure { margin: 0; text-align: center; font-weight: 700; }
+.comparacion svg {
+  width: 100%;
+  height: auto;
+  border: 3px solid var(--tinta);
+  border-radius: 16px;
+  background: var(--blanco);
+}
+
+/* ---------- 3d. V4 Palabras ---------- */
+
+.cuarto {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 5 / 6;
+  margin: 0 auto;
+  border: 3px solid var(--tinta);
+  border-radius: 16px;
+  /* pared arriba, piso abajo */
+  background: linear-gradient(#FDF3DC 0 68%, #E7C9A0 68% 100%);
+  overflow: hidden;
+}
+.objeto { position: absolute; display: flex; flex-direction: column; align-items: center; }
+.objeto-dibujo {
+  width: 100%;
+  padding: 0;
+  border: 4px solid transparent;
+  border-radius: 16px;
+  background: none;
+  cursor: pointer;
+}
+.objeto-dibujo svg { width: 100%; height: auto; }
+.objeto-dibujo:disabled { cursor: default; }
+.objeto-resaltado { border-color: var(--acento); border-style: dashed; background: rgba(255, 255, 255, .7); }
+.objeto-apagado { opacity: .35; }
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 56px;
+  padding: 4px 10px;
+  border: 3px solid var(--tinta);
+  border-radius: 14px;
+  background: var(--blanco);
+  font: inherit;
+  font-weight: 700;
+  color: var(--tinta);
+  cursor: pointer;
+}
+.panel { margin-top: 12px; text-align: center; }
+.opciones { display: grid; gap: 10px; max-width: 320px; margin: 0 auto; }
+.opcion { display: flex; gap: 10px; }
+.opcion .boton { flex: 1; font-size: 1.2rem; }
+.nombre-grande { font-size: 2.2rem; font-weight: 700; margin: 0; }
+
+/* ---------- 3e. V5 Progreso ---------- */
+
+.logro {
+  margin: 12px 0;
+  padding: 12px 16px;
+  border: 3px solid var(--tinta);
+  border-radius: 20px;
+  background: var(--blanco);
+}
+.logro h2 { margin: 0 0 4px; font-size: 1.2rem; }
+.logro p { margin: 2px 0; }
+
+/* ---------- Menos movimiento si el sistema lo pide ---------- */
+/* Las hojas dejan de deslizarse; las líneas de viento siguen indicando el sentido. */
+@media (prefers-reduced-motion: reduce) {
+  .vuela-der, .vuela-izq { animation: none; }
+}
